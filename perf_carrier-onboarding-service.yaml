@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: carrier-onboarding-service
+  namespace: perf
+  labels:
+    run: carrier-onboarding-service
+spec:
+  type: NodePort
+  ports:
+  - nodePort: 32277
+    port: 9152
+    protocol: TCP
+  selector:
+    run: carrier-onboarding-service

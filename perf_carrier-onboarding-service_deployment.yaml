@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: carrier-onboarding-service
+  namespace: perf
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      run: carrier-onboarding-service
+  template:
+    metadata:
+      labels:
+        run: carrier-onboarding-service
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - name: carrier-onboarding-service
+        image: us.gcr.io/blume-shared-container-images/carrier-onboarding-service:
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: 300m
+            memory: 2500Mi
+          requests:
+            cpu: 250m
+            memory: 2500Mi
+        env:
+        - name: SPRING_PROFILE
+          value: "perf"
+        - name: JAVA_OPTS
+          value: "-Xms2g -Xmx2g"        
+
